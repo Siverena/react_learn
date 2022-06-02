@@ -5,12 +5,23 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/index.js'),
+  entry: path.resolve(__dirname, './src/index.jsx'),
+  output: {
+    clean: true,
+    environment: {
+      arrowFunction: false,
+    },
+    filename: '[name].bundle.[chunkhash].js',
+    path: path.resolve(__dirname, './build'),
+  },
+  resolve: {
+    extensions: ['.jsx', '.js'],
+  },
   module: {
     rules: [
       {
         exclude: /node_modules/,
-        test: /\.js$/,
+        test: /\.jsx?$/,
         use: ['babel-loader'],
       },
       {
@@ -47,14 +58,6 @@ module.exports = {
         ],
       },
     ],
-  },
-  output: {
-    clean: true,
-    environment: {
-      arrowFunction: false,
-    },
-    filename: '[name].bundle.[chunkhash].js',
-    path: path.resolve(__dirname, './build'),
   },
   plugins: [
     new HtmlWebpackPlugin({

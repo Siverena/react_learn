@@ -7,6 +7,10 @@ export class Message extends Component {
   handleClick = () => {
     this.setState({ msg: 'this.state.msg' });
   };
+
+  componentDidMount() {
+    console.log('component did mount');
+  }
   render() {
     return (
       <>
