@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Button } from './components/Button/Button';
+import style from './form.module.scss';
 
 export const Form = ({ addMessage }) => {
   const [text, setText] = useState('');
@@ -13,13 +15,14 @@ export const Form = ({ addMessage }) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form className={style.form} onSubmit={submitHandler}>
       <input
+        className={style['form__input']}
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button>Send</button>
+      <Button label={'Отправить'} />
     </form>
   );
 };

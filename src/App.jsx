@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Form } from './components/Form';
-import { MessageList } from './components/MessagesList';
+import { Form } from './components/Form/Form';
+// import { Message } from "./components/MessageList/components/Message/Message";
+import { MessageList } from './components/MessageList/MessageList';
+import USERS from './constants';
 
-//import style from './index.module.css';
+import style from './index.module.scss';
 
-const msg = [
-  {
-    author: 'Вы',
-    text: 'Привет',
-  },
-];
+const msg = [];
 
 export const App = () => {
   const [messages, setMessages] = useState(msg);
@@ -17,11 +14,14 @@ export const App = () => {
     setMessages([...messages, newMessage]);
   };
   useEffect(() => {
-    if (messages[messages.length - 1].author === 'Вы') {
+    if (
+      messages.length &&
+      messages[messages.length - 1].author === USERS.user
+    ) {
       const timeout = setTimeout(() => {
         addMessage({
-          author: 'Boт',
-          text: 'Добрый день! Я бот.',
+          author: USERS.bot,
+          text: 'Добрый день! Я ботик котик. Почешите мне животик',
         });
       }, 1000);
       return () => {
@@ -31,8 +31,13 @@ export const App = () => {
   }, [messages]);
   return (
     <>
-      <MessageList messages={messages} />
-      <Form addMessage={addMessage} />
+      <main>
+        <div className={style.container}>
+          <MessageList messages={messages} />
+
+          <Form addMessage={addMessage} />
+        </div>
+      </main>
     </>
   );
 };
