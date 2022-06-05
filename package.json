@@ -4,7 +4,8 @@
   "private": true,
   "homepage": "https://siverena.github.io/react_learn/",
   "scripts": {
-    "start": "webpack serve --mode=development --open-app-name=firefox",
+    "start": "webpack serve --mode=development",
+    "start:firefox": "webpack serve --mode=development --open-app-name=firefox",
     "build": "webpack --mode=production",
     "lint": "npx eslint --ext .js,.jsx --fix ./",
     "prepare": "husky install",
