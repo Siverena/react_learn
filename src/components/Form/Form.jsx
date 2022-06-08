@@ -19,6 +19,7 @@ export const Form = ({ addMessage }) => {
       <input
         className={style['form__input']}
         type="text"
+        placeholder="Введите сообщение"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />

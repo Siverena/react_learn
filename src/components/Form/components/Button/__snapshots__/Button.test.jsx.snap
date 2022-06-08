@@ -4,6 +4,7 @@ exports[`Button render with snapshot 1`] = `
 <DocumentFragment>
   <button
     class="button"
+    data-testid="submitbutton"
   >
     test
   </button>
