@@ -12,15 +12,15 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended'
   ],
-  overrides: [
-    {
-      files: ['webpack.config.js'],
-      rules: {
-        '@typescript-eslint/no-var-requires': ['off'],
-      },
+  overrides: [{
+    files: ['webpack.config.js'],
+    rules: {
+      '@typescript-eslint/no-var-requires': ['off'],
     },
-  ],
+  }, ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,

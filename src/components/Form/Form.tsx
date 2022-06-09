@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Button } from './components/Button/Button';
 import style from './form.module.scss';
 
-export const Form = ({ addMessage }) => {
+
+import {TSMessage} from '../../types'
+
+
+interface FormProps{
+  addMessage: (msg:TSMessage) =>void
+}
+
+
+export const Form: FC<FormProps> = ({ addMessage }) => {
   const [text, setText] = useState('');
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.formEvent<HTMLFormElement>) => {
     e.preventDefault();
     addMessage({
       author: 'Вы',
@@ -13,7 +22,9 @@ export const Form = ({ addMessage }) => {
     });
     setText('');
   };
-
+const handleClickButton =()=>{
+  console.log('button click')
+}
   return (
     <form className={style.form} onSubmit={submitHandler}>
       <input
@@ -23,7 +34,7 @@ export const Form = ({ addMessage }) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <Button label={'Отправить'} />
+      <Button label='Отправить' click={handleClickButton}/>
     </form>
   );
 };

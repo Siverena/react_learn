@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { Form } from './components/Form/Form';
 // import { Message } from "./components/MessageList/components/Message/Message";
 import { MessageList } from './components/MessageList/MessageList';
 import USERS from './constants';
-
+import {TSMessage} from './types'
 import style from './index.module.scss';
 
 const msg = [];
 
-export const App = () => {
-  const [messages, setMessages] = useState(msg);
+export const App: FC = () => {
+  const [messages, setMessages] = useState<TSMessage[]>(msg);
   const addMessage = (newMessage) => {
     setMessages([...messages, newMessage]);
   };
