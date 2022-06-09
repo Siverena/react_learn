@@ -1,0 +1,18 @@
+.message{
+    background-color: #f5f3f3;
+    padding: 5px 15px;
+    margin-top: 10px;
+    width: fit-content;
+    max-width: 70%;
+    list-style: none;
+    &--my{
+        margin-left:auto;
+        background-color: #f09da8;
+    }
+    &__line{
+        border: none;
+        border-top: 1px solid #e2e2e2;
+        margin-bottom: 17px;
+        height: 1px;
+    }
+}

@@ -1,0 +1,32 @@
+.form {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    &__input{
+        height: 30px;
+        flex-grow: 1;
+        line-height: 16px;
+        color: #222;
+        border: 1px solid #a4a4a4;
+        font-weight: 300;
+        font-size: 13px;
+        &:focus{
+            outline: none;
+            border: 1px solid #f26376;
+        }
+    }
+    &__button{
+        width: 80px;
+        margin-left: 10px;
+        cursor: pointer;
+        border: 1px solid #ff6a6a;
+        color: #f26376;
+        background-color: transparent;
+        &:hover{
+            background-color: #f16d7f;
+            color: #fff;
+            border: none;
+        }
+    }
+}

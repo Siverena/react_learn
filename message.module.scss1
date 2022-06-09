@@ -1,9 +1,0 @@
-.message {
-    background-color: red;
-    &__text{
-        text-decoration: underline;
-    }
-    &--green{
-        color: green;
-    }
-}
