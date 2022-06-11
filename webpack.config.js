@@ -17,12 +17,15 @@ module.exports = {
     historyApiFallback: true,
     port: 8000,
   },
-  devtool: process.env.NODE_ENV === 'production' ?
-    'hidden-source-map' : 'eval-source-map',
-  entry: path.resolve(__dirname, './src/index.tsx'),
+  devtool:
+    process.env.NODE_ENV === 'production'
+      ? 'hidden-source-map'
+      : 'eval-source-map',
+  entry: path.resolve(__dirname, 'src/index.tsx'),
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   module: {
-    rules: [{
+    rules: [
+      {
         exclude: /node_modules/,
         test: /\.(j|t)sx?$/,
         use: ['babel-loader'],
@@ -93,18 +96,20 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './public/index.html'),
     }),
-    ...(isDev ? [new MiniCssExtractPlugin()] : [
-      new MiniCssExtractPlugin({
-        chunkFilename: '[name].[contenthash].css',
-        filename: '[name].[contenthash].css',
-      }),
-    ]),
+    ...(isDev
+      ? [new MiniCssExtractPlugin()]
+      : [
+          new MiniCssExtractPlugin({
+            chunkFilename: '[name].[contenthash].css',
+            filename: '[name].[contenthash].css',
+          }),
+        ]),
     ...(withReport ? new BundleAnalyzerPlugin() : ''),
   ],
   resolve: {
     alias: {
-      components: path.resolve(__dirname, 'src/components/'),
       src: path.resolve(__dirname, 'src'),
+      components: path.resolve(__dirname, './src/components/'),
       store: path.resolve(__dirname, 'src/store'),
       svg: path.resolve(__dirname, 'src/assets/svg'),
     },

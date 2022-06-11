@@ -7,8 +7,7 @@
     "start": "webpack serve --mode=development",
     "start:firefox": "webpack serve --mode=development --open-app-name=firefox",
     "build": "webpack --mode=production",
-    "lint": "npx eslint --ext .js,.jsx, --fix ./",
-    "Oldlint": "npx tsc --noEmit && npx eslint --ext .js,.jsx, .ts,.tsx --fix ./",
+    "lint": "npx tsc --noEmit && npx eslint --ext .js,.jsx,.ts,.tsx --fix ./",
     "prepare": "husky install",
     "deploy:web": "npm run build && gh-pages -d build",
     "deploy:storybook": "npm run build-storybook && gh-pages -d storybook-static",
@@ -24,7 +23,8 @@
     "test:coverage": "jest --coverage --colors",
     "loki:update": "npm run build-storybook && loki update --requireReference --reactUri file:./storybook-static",
     "loki:approve": "loki approve",
-    "loki:test": "npm run build-storybook && loki test --requireReference --reactUri file:./storybook-static"
+    "loki:test": "npm run build-storybook && loki test --requireReference --reactUri file:./storybook-static",
+    "chromatic": "npx chromatic --project-token=d7c1cfaec756"
   },
   "browserslist": {
     "production": [
@@ -60,6 +60,7 @@
     "@typescript-eslint/parser": "^5.27.1",
     "babel-jest": "^28.1.0",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.5.6",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
     "eslint": "^8.16.0",

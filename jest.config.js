@@ -2,7 +2,7 @@
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
-
+// const path = require('path');
 module.exports = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -90,6 +90,13 @@ module.exports = {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/__mocks__/fileMock.js',
     '\\.(s?css|less)$': 'identity-obj-proxy',
+    '^components':
+      /* path.resolve(__dirname, '/src/components'), /*/ '<rootDir>/src/components',
+    '^src': /*path.resolve(__dirname, '/src'), /*/ '<rootDir>/src',
+    '^store':
+      /* path.resolve(__dirname, './src/store'), /*/ '<rootDir>/src/store',
+    '^svg':
+      /* path.resolve(__dirname, 'src/assets/svg'), /*/ '<rootDir>/src/assets/svg',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

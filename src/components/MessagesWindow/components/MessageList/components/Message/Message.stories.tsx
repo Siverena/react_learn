@@ -1,14 +1,15 @@
 import React from 'react';
-import USERS from '../../../../constants';
+import USERS from 'src/constants';
 import { Message } from './Message';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 export default {
   title: 'Message',
   component: Message,
-};
+} as ComponentMeta<typeof Message>;
 
-const Template = (args) => (
-  <Message {...{ message: { author: args.author, text: args.text } }} />
+const Template: ComponentStory<typeof Message> = (args) => (
+  <Message {...args} />
 );
 
 export const MyMessage = Template.bind({});

@@ -1,21 +1,22 @@
+//проверить что добавляются сообщения
+// в ul отрисовываются li = messages.length
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { fireEvent, waitFor } from '@testing-library/dom';
+import { MessagesWindow } from './MessagesWindow';
 import '@testing-library/jest-dom';
 
-import { App } from './App';
-
-describe('App', () => {
+describe('MessageList', () => {
+  it('render component', () => {
+    render(<MessagesWindow />);
+  });
   it('Bot`s response', async () => {
-    render(<App />);
-
-    // render(<Form addMessage={() => {}} />);
-
+    render(<MessagesWindow />);
     fireEvent.input(screen.getByPlaceholderText('Введите сообщение'), {
       target: { value: 'TestMessage' },
     });
     fireEvent.click(screen.getByTestId('submitbutton'));
-    // render(<MessageList {...[{ author: "Вы", text: "TestMessage" }]} />);
+
     await waitFor(
       () =>
         expect(

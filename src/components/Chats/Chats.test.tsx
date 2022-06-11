@@ -1,11 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-
+import { Chats } from './Chats';
 import '@testing-library/jest-dom';
-import { Form } from './Form';
 
-describe('Form', () => {
+describe('MessageList', () => {
   it('render component', () => {
-    render(<Form className="class" onSubmit="" />);
+    render(<Chats />);
   });
 });
