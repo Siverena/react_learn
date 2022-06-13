@@ -1,5 +1,5 @@
 import React from 'react';
-import USERS from 'src/constants';
+import { USERS } from 'src/constants';
 import { Message } from './Message';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 

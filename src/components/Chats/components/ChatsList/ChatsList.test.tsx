@@ -7,6 +7,7 @@ import { ChatsList } from './ChatsList';
 
 describe('ChatsList', () => {
   it('render component', () => {
-    render(<ChatsList chats={[]} />);
+    const mockHandler = jest.fn();
+    render(<ChatsList chats={[]} deleteChat={mockHandler} />);
   });
 });

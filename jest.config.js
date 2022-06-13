@@ -91,12 +91,15 @@ module.exports = {
       '<rootDir>/__mocks__/fileMock.js',
     '\\.(s?css|less)$': 'identity-obj-proxy',
     '^components':
-      /* path.resolve(__dirname, '/src/components'), /*/ '<rootDir>/src/components',
+      /* path.resolve(__dirname, '/src/components'), /*/
+      '<rootDir>/src/components',
     '^src': /*path.resolve(__dirname, '/src'), /*/ '<rootDir>/src',
     '^store':
-      /* path.resolve(__dirname, './src/store'), /*/ '<rootDir>/src/store',
+      /* path.resolve(__dirname, './src/store'), /*/
+      '<rootDir>/src/store',
     '^svg':
-      /* path.resolve(__dirname, 'src/assets/svg'), /*/ '<rootDir>/src/assets/svg',
+      /* path.resolve(__dirname, 'src/assets/svg'), /*/
+      '<rootDir>/src/assets/svg',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -162,15 +165,16 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
+  // testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   "\\\\node_modules\\\\"
-  // ],
+  testPathIgnorePatterns: [
+    '\\\\node_modules\\\\',
+    '(/node_modules/(?!(uuid|nanoid)/))',
+  ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  // testRegex: [],
+  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js|jsx)$',
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
@@ -184,10 +188,11 @@ module.exports = {
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [
-  //   "\\\\node_modules\\\\",
-  //   "\\.pnp\\.[^\\\\]+$"
-  // ],
+  transformIgnorePatterns: [
+    '\\\\node_modules\\\\',
+    '\\.pnp\\.[^\\\\]+$',
+    '/node_modules/(?!(uuid|nanoid)/)',
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

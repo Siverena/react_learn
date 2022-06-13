@@ -1,39 +1,66 @@
-import { useState, useEffect, FC } from 'react';
-import { Form } from './components/Form/Form';
-import { MessageList } from './components/MessageList/MessageList';
-import { TSMessage } from '../../common-types';
-import USERS from '../../constants';
-import style from './messages.module.scss';
+import { useEffect, FC, useCallback } from "react";
+import { Form } from "./components/Form/Form";
+import { MessageList } from "./components/MessageList/MessageList";
+import { TSMessage, TSMessages } from "../../common-types";
+import { USERS } from "../../constants";
+import { useParams, Navigate } from "react-router-dom";
+import style from "./messages.module.scss";
 
-const msg: Array<TSMessage> = [];
-
-export const MessagesWindow: FC = () => {
-  const [messages, setMessages] = useState<TSMessage[]>(msg);
-  const addMessage = (newMessage: TSMessage) => {
-    setMessages([...messages, newMessage]);
-  };
+interface MessagesWindowProps {
+  messages: TSMessages;
+  addMessage: (id: string, message: TSMessage) => void;
+}
+export const MessagesWindow: FC<MessagesWindowProps> = ({
+  messages,
+  addMessage,
+}) => {
+  const { chatId } = useParams();
   useEffect(() => {
     if (
-      messages.length &&
-      messages[messages.length - 1].author === USERS.user
+      chatId &&
+      messages[chatId]?.length &&
+      messages[chatId][messages[chatId].length - 1].author === USERS.user
     ) {
       const timeout = setTimeout(() => {
-        addMessage({
+        addMessage(chatId, {
           author: USERS.bot,
-          text: 'Добрый день! Я ботик котик. Почешите мне животик',
+          text: "Добрый день! Я ботик котик. Почешите мне животик",
         });
       }, 1000);
       return () => {
         clearTimeout(timeout);
       };
     }
-  }, [messages]);
-  return (
-    <>
-      <section className={style['chat-window']}>
-        <MessageList messages={messages} />
-        <Form addMessage={addMessage} />
-      </section>
-    </>
+  }, [chatId, messages]);
+  const handleAddMessage = useCallback(
+    (message: TSMessage) => {
+      if (chatId) {
+        addMessage(chatId, message);
+      }
+    },
+    [chatId]
   );
+
+  if (chatId && !messages[chatId]) {
+    return <Navigate to="/chats" replace />;
+  }
+
+  if (chatId) {
+    return (
+      <>
+        <section className={style["message-window"]}>
+          <MessageList messages={chatId ? messages[chatId] : []} />
+          <Form addMessage={handleAddMessage} />
+        </section>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div className={style["message-window--no-chat"]}>
+          <p>Выберите чат</p>
+        </div>
+      </>
+    );
+  }
 };
