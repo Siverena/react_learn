@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { Chats } from "../components/Chats/Chats";
-import { MessagesWindow } from "../components/MessagesWindow/MessagesWindow";
-import style from "../index.module.scss";
-import { TSChat, TSMessage, TSMessages } from "^src/common-types";
+import { FC } from 'react';
+import { Chats } from '../components/Chats/Chats';
+import { MessagesWindow } from '../components/MessagesWindow/MessagesWindow';
+import style from '../index.module.scss';
+import { TSChat, TSMessage, TSMessages } from '^src/common-types';
 
 interface ChatsPageProps {
   chats: TSChat[];
@@ -20,7 +20,7 @@ export const ChatsPage: FC<ChatsPageProps> = ({
 }) => {
   return (
     <>
-      <div className={style["chats-page__container"]}>
+      <div className={style['chats-page__container']}>
         <Chats chats={chats} addChat={addChat} deleteChat={deleteChat} />
         <MessagesWindow messages={messages} addMessage={addMessage} />
       </div>
