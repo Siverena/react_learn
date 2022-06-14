@@ -87,8 +87,7 @@ module.exports = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/fileMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
     '\\.(s?css|less)$': 'identity-obj-proxy',
     '^components':
       /* path.resolve(__dirname, '/src/components'), /*/
@@ -159,7 +158,13 @@ module.exports = {
   testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
-  // testEnvironmentOptions: {},
+  testEnvironmentOptions: {
+    "browsers": [
+      "chrome",
+      "firefox",
+      "safari"
+    ]
+  },
 
   // Adds a location field to test results
   // testLocationInResults: false,
