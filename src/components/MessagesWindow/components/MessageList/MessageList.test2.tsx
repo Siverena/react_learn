@@ -1,11 +1,11 @@
-import { render } from "@testing-library/react";
+import { render } from '@testing-library/react';
 
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
 
-import { MessageList } from "./MessageList";
+import { MessageList } from './MessageList';
 
-describe("MessageList", () => {
-  it("render component", () => {
+describe('MessageList', () => {
+  it('render component', () => {
     render(<MessageList messages={[]} key={1} />);
   });
 });

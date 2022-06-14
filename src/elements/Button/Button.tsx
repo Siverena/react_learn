@@ -1,5 +1,4 @@
 import style from './button.module.scss';
-import React from 'react';
 import { FC } from 'react';
 
 interface ButtonProps {

@@ -1,10 +1,10 @@
-import { useEffect, FC, useCallback } from "react";
-import { Form } from "./components/Form/Form";
-import { MessageList } from "./components/MessageList/MessageList";
-import { TSMessage, TSMessages } from "../../common-types";
-import { USERS } from "../../constants";
-import { useParams, Navigate } from "react-router-dom";
-import style from "./messages.module.scss";
+import { useEffect, FC, useCallback } from 'react';
+import { Form } from './components/Form/Form';
+import { MessageList } from './components/MessageList/MessageList';
+import { TSMessage, TSMessages } from '../../common-types';
+import { USERS } from '../../constants';
+import { useParams, Navigate } from 'react-router-dom';
+import style from './messages.module.scss';
 
 interface MessagesWindowProps {
   messages: TSMessages;
@@ -24,7 +24,7 @@ export const MessagesWindow: FC<MessagesWindowProps> = ({
       const timeout = setTimeout(() => {
         addMessage(chatId, {
           author: USERS.bot,
-          text: "Добрый день! Я ботик котик. Почешите мне животик",
+          text: 'Добрый день! Я ботик котик. Почешите мне животик',
         });
       }, 1000);
       return () => {
@@ -48,7 +48,7 @@ export const MessagesWindow: FC<MessagesWindowProps> = ({
   if (chatId) {
     return (
       <>
-        <section className={style["message-window"]}>
+        <section className={style['message-window']}>
           <MessageList messages={chatId ? messages[chatId] : []} />
           <Form addMessage={handleAddMessage} />
         </section>
@@ -57,7 +57,7 @@ export const MessagesWindow: FC<MessagesWindowProps> = ({
   } else {
     return (
       <>
-        <div className={style["message-window--no-chat"]}>
+        <div className={style['message-window--no-chat']}>
           <p>Выберите чат</p>
         </div>
       </>

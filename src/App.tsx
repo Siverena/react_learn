@@ -1,25 +1,25 @@
-import React, { useState, FC, useMemo, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Header } from "./components/Header/Header";
-import { Loader } from "./elements/Loader/Loader";
-import style from "./index.module.scss";
-import { nanoid } from "nanoid";
-import { TSMessage, TSMessages } from "^src/common-types";
-import { Provider } from "react-redux";
-import { store } from "./store";
+import React, { useState, FC, useMemo, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Header } from './components/Header/Header';
+import { Loader } from './elements/Loader/Loader';
+import style from './index.module.scss';
+import { nanoid } from 'nanoid';
+import { TSMessage, TSMessages } from '^src/common-types';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 const ProfilePage = React.lazy(() =>
-  import("./pages/ProfilePage").then(({ ProfilePage }) => ({
+  import('./pages/ProfilePage').then(({ ProfilePage }) => ({
     default: ProfilePage,
   }))
 );
 const ChatsPage = React.lazy(() =>
-  import("./pages/ChatsPage").then(({ ChatsPage }) => ({
+  import('./pages/ChatsPage').then(({ ChatsPage }) => ({
     default: ChatsPage,
   }))
 );
 const MainPage = React.lazy(() =>
-  import("./pages/MainPage").then(({ MainPage }) => ({
+  import('./pages/MainPage').then(({ MainPage }) => ({
     default: MainPage,
   }))
 );
@@ -58,7 +58,7 @@ export const App: FC = () => {
 
   return (
     <Provider store={store}>
-      <div className={style["app-wrapper"]}>
+      <div className={style['app-wrapper']}>
         <Suspense fallback={<Loader />}>
           <BrowserRouter>
             <Routes>
