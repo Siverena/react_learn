@@ -1,11 +1,11 @@
-import { FC } from "react";
-import { Form } from "./components/Form/Form";
-import { MessageList } from "./components/MessageList/MessageList";
+import { FC } from 'react';
+import { Form } from './components/Form/Form';
+import { MessageList } from './components/MessageList/MessageList';
 // import { USERS } from "../../constants";
-import { useParams, Navigate } from "react-router-dom";
-import style from "./messages.module.scss";
-import { useSelector } from "react-redux";
-import { selectMessages } from "src/store/messages/selectors";
+import { useParams, Navigate } from 'react-router-dom';
+import style from './messages.module.scss';
+import { useSelector } from 'react-redux';
+import { selectMessages } from 'src/store/messages/selectors';
 
 export const MessagesWindow: FC = () => {
   const { chatName } = useParams();
@@ -36,7 +36,7 @@ export const MessagesWindow: FC = () => {
   if (chatName) {
     return (
       <>
-        <section className={style["message-window"]}>
+        <section className={style['message-window']}>
           <MessageList messages={messages[chatName]} />
           <Form />
         </section>
@@ -45,7 +45,7 @@ export const MessagesWindow: FC = () => {
   } else {
     return (
       <>
-        <div className={style["message-window--no-chat"]}>
+        <div className={style['message-window--no-chat']}>
           <p>Выберите чат</p>
         </div>
       </>

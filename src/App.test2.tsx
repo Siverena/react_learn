@@ -1,10 +1,10 @@
-import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 
-import { App } from "./App";
+import { App } from './App';
 
-describe("App", () => {
-  it("render component", () => {
+describe('App', () => {
+  it('render component', () => {
     render(<App />);
   });
 });
