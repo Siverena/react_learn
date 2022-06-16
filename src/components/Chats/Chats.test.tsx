@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 
 describe('MessageList', () => {
   it('render component', () => {
-    render(<Chats />);
+    const mockHandler = jest.fn();
+    render(<Chats chats={[]} addChat={mockHandler} deleteChat={mockHandler} />);
   });
 });

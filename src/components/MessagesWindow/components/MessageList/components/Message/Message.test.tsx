@@ -1,6 +1,4 @@
-import React from 'react';
-import USERS from '../../../../../../constants';
-// import USERS from "src/constants";
+import { USERS } from '../../../../../../constants';
 import { render, screen } from '@testing-library/react';
 import { Message } from './Message';
 import '@testing-library/jest-dom';
@@ -17,6 +15,5 @@ describe('Message', () => {
   });
   it('has class message--my', () => {
     render(<Message author={USERS.user} text="Привет" />);
-    //expect(screen.queryByRole("listitem")).toHaveClass("message--my");
   });
 });

@@ -7,6 +7,9 @@ export interface TSMessage {
   author: Users;
   text: string;
 }
+export interface TSMessages {
+  [key: string]: TSMessage[];
+}
 export interface TSChat {
   id: string;
   name: string;

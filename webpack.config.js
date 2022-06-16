@@ -39,7 +39,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[name]___[hash:base64:5]',
+                localIdentName: isDev ? '[name]' : '[name]___[hash:base64:5]',
                 mode: 'icss',
               },
             },
@@ -55,7 +55,7 @@ module.exports = {
             loader: 'css-loader',
             options: {
               modules: {
-                localIdentName: '[name]___[hash:base64:5]',
+                localIdentName: isDev ? '[name]' : '[name]___[hash:base64:5]',
                 mode: 'local',
               },
             },

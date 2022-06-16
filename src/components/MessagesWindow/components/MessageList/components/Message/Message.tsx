@@ -1,7 +1,6 @@
 import React from 'react';
 import style from './message.module.scss';
-import USERS from '../../../../../../constants';
-// import USERS from "src/constants";
+import { USERS } from '../../../../../../constants';
 import { TSMessage } from 'src/common-types';
 import { FC } from 'react';
 
