@@ -1,10 +1,11 @@
 import { render } from "@testing-library/react";
+
 import "@testing-library/jest-dom";
 
-import { App } from "./App";
+import { ChatsList } from "./ChatsList";
 
-describe("App", () => {
+describe("ChatsList", () => {
   it("render component", () => {
-    render(<App />);
+    render(<ChatsList />);
   });
 });

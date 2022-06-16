@@ -1,10 +1,10 @@
+import React from "react";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { Form } from "./Form";
 
-import { App } from "./App";
-
-describe("App", () => {
+describe("Form", () => {
   it("render component", () => {
-    render(<App />);
+    render(<Form />);
   });
 });

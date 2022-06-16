@@ -1,63 +1,51 @@
-import { useEffect, FC, useCallback } from 'react';
-import { Form } from './components/Form/Form';
-import { MessageList } from './components/MessageList/MessageList';
-import { TSMessage, TSMessages } from '../../common-types';
-import { USERS } from '../../constants';
-import { useParams, Navigate } from 'react-router-dom';
-import style from './messages.module.scss';
+import { FC } from "react";
+import { Form } from "./components/Form/Form";
+import { MessageList } from "./components/MessageList/MessageList";
+// import { USERS } from "../../constants";
+import { useParams, Navigate } from "react-router-dom";
+import style from "./messages.module.scss";
+import { useSelector } from "react-redux";
+import { selectMessages } from "src/store/messages/selectors";
 
-interface MessagesWindowProps {
-  messages: TSMessages;
-  addMessage: (id: string, message: TSMessage) => void;
-}
-export const MessagesWindow: FC<MessagesWindowProps> = ({
-  messages,
-  addMessage,
-}) => {
-  const { chatId } = useParams();
-  useEffect(() => {
-    if (
-      chatId &&
-      messages[chatId]?.length &&
-      messages[chatId][messages[chatId].length - 1].author === USERS.user
-    ) {
-      const timeout = setTimeout(() => {
-        addMessage(chatId, {
-          author: USERS.bot,
-          text: 'Добрый день! Я ботик котик. Почешите мне животик',
-        });
-      }, 1000);
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [chatId, messages]);
-  const handleAddMessage = useCallback(
-    (message: TSMessage) => {
-      if (chatId) {
-        addMessage(chatId, message);
-      }
-    },
-    [chatId, addMessage]
-  );
+export const MessagesWindow: FC = () => {
+  const { chatName } = useParams();
 
-  if (chatId && !messages[chatId]) {
+  const messages = useSelector(selectMessages);
+  // useEffect(() => {
+  //   if (
+  //     chatId &&
+  //     messages[chatId]?.length &&
+  //     messages[chatId][messages[chatId].length - 1].author === USERS.user
+  //   ) {
+  //     const timeout = setTimeout(() => {
+  //       addMessage(chatId, {
+  //         author: USERS.bot,
+  //         text: 'Добрый день! Я ботик котик. Почешите мне животик',
+  //       });
+  //     }, 1000);
+  //     return () => {
+  //       clearTimeout(timeout);
+  //     };
+  //   }
+  // }, [chatId, messages]);
+
+  if (chatName && !messages[chatName]) {
     return <Navigate to="/chats" replace />;
   }
 
-  if (chatId) {
+  if (chatName) {
     return (
       <>
-        <section className={style['message-window']}>
-          <MessageList messages={chatId ? messages[chatId] : []} />
-          <Form addMessage={handleAddMessage} />
+        <section className={style["message-window"]}>
+          <MessageList messages={messages[chatName]} />
+          <Form />
         </section>
       </>
     );
   } else {
     return (
       <>
-        <div className={style['message-window--no-chat']}>
+        <div className={style["message-window--no-chat"]}>
           <p>Выберите чат</p>
         </div>
       </>

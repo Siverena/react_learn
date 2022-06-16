@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { TSChat } from '../../../../common-types';
 import { NavLink } from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -8,13 +7,17 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import style from './chats-list.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteChat } from 'src/store/messages/action';
+import { selectChats } from 'src/store/messages/selectors';
 
-interface ChatsListProps {
-  chats: TSChat[];
-  deleteChat: (name: string) => void;
-}
+export const ChatsList: FC = () => {
+  const dispatch = useDispatch();
+  const chats = useSelector(
+    selectChats,
+    (prev, next) => prev.length === next.length
+  );
 
-export const ChatsList: FC<ChatsListProps> = ({ chats, deleteChat }) => {
   return (
     <section className={style['chats']}>
       <List className={style['chatlist']}>
@@ -27,7 +30,7 @@ export const ChatsList: FC<ChatsListProps> = ({ chats, deleteChat }) => {
               <IconButton
                 aria-label="delete"
                 onClick={() => {
-                  deleteChat(chat.name);
+                  dispatch(deleteChat(chat.name));
                 }}
               >
                 <DeleteIcon />
