@@ -38,7 +38,7 @@ export const MessagesWindow: FC<MessagesWindowProps> = ({
         addMessage(chatId, message);
       }
     },
-    [chatId]
+    [chatId, addMessage]
   );
 
   if (chatId && !messages[chatId]) {

@@ -1,12 +1,28 @@
-import { useState, FC, useMemo } from 'react';
+import React, { useState, FC, useMemo, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Header } from './components/Header/Header';
-import { ChatsPage } from './pages/ChatsPage';
-import { MainPage } from './pages/MainPage';
-import { ProfilePage } from './pages/ProfilePage';
+import { Loader } from './elements/Loader/Loader';
 import style from './index.module.scss';
 import { nanoid } from 'nanoid';
 import { TSMessage, TSMessages } from '^src/common-types';
+import { Provider } from 'react-redux';
+import { store } from './store';
+
+const ProfilePage = React.lazy(() =>
+  import('./pages/ProfilePage').then(({ ProfilePage }) => ({
+    default: ProfilePage,
+  }))
+);
+const ChatsPage = React.lazy(() =>
+  import('./pages/ChatsPage').then(({ ChatsPage }) => ({
+    default: ChatsPage,
+  }))
+);
+const MainPage = React.lazy(() =>
+  import('./pages/MainPage').then(({ MainPage }) => ({
+    default: MainPage,
+  }))
+);
 
 const messagesTmp: TSMessages = {
   defaultChatName: [],
@@ -41,42 +57,46 @@ export const App: FC = () => {
   };
 
   return (
-    <div className={style['app-wrapper']}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Header />}>
-            <Route index element={<MainPage />}></Route>
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/chats">
-              <Route
-                index
-                element={
-                  <ChatsPage
-                    chats={chats}
-                    addChat={addChat}
-                    deleteChat={deleteChat}
-                    messages={messages}
-                    addMessage={addMessage}
+    <Provider store={store}>
+      <div className={style['app-wrapper']}>
+        <Suspense fallback={<Loader />}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Header />}>
+                <Route index element={<MainPage />}></Route>
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/chats">
+                  <Route
+                    index
+                    element={
+                      <ChatsPage
+                        chats={chats}
+                        addChat={addChat}
+                        deleteChat={deleteChat}
+                        messages={messages}
+                        addMessage={addMessage}
+                      />
+                    }
                   />
-                }
-              />
-              <Route
-                path=":chatId"
-                element={
-                  <ChatsPage
-                    chats={chats}
-                    addChat={addChat}
-                    deleteChat={deleteChat}
-                    messages={messages}
-                    addMessage={addMessage}
+                  <Route
+                    path=":chatId"
+                    element={
+                      <ChatsPage
+                        chats={chats}
+                        addChat={addChat}
+                        deleteChat={deleteChat}
+                        messages={messages}
+                        addMessage={addMessage}
+                      />
+                    }
                   />
-                }
-              />
-            </Route>
-          </Route>
-          <Route path="*" element={<h2>404</h2>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+                </Route>
+              </Route>
+              <Route path="*" element={<h2>404</h2>} />
+            </Routes>
+          </BrowserRouter>
+        </Suspense>
+      </div>
+    </Provider>
   );
 };
