@@ -9,7 +9,7 @@ export const Message: FC<TSMessage> = ({ author, text }) => {
   return (
     <>
       <li
-        data-testid='li'
+        data-testid="li"
         className={
           style['message'] +
           (isMyMessage(author) ? ' ' + style['message--my'] : '')

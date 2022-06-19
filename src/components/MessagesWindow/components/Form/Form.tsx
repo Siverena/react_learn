@@ -23,14 +23,14 @@ export const Form: FC = memo(() => {
   };
 
   return (
-    <form data-testid='form' className={style.form} onSubmit={submitHandler}>
+    <form data-testid="form" className={style.form} onSubmit={submitHandler}>
       <Input
         classnames={['input']}
         value={text}
-        placeholder='Введите сообщение'
+        placeholder="Введите сообщение"
         change={setText}
       />
-      <Button label='Отправить' />
+      <Button label="Отправить" />
     </form>
   );
 });

@@ -21,7 +21,7 @@ describe('Input', () => {
     expect(input.value).toBe('Hello, World!');
   });
   it('input  with placeholder', async () => {
-    render(<Input classnames={['input']} placeholder='Введите текст' />);
+    render(<Input classnames={['input']} placeholder="Введите текст" />);
     const input = screen.getByPlaceholderText('Введите текст');
     expect(input).toBeInTheDocument;
   });

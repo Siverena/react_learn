@@ -14,12 +14,12 @@ export const ProfilePage: FC = () => {
     <>
       <h2>Profile page</h2>
       <p>{name}</p>
-      <input type='checkbox' checked={visible} readOnly />
+      <input type="checkbox" checked={visible} readOnly />
       <button onClick={() => dispatch(toggleProfile())}>chahge visible</button>
       <hr />
 
       <Input classnames={['']} value={text} change={setText} />
-      <Button label='Изменить' click={() => dispatch(changeName(text))} />
+      <Button label="Изменить" click={() => dispatch(changeName(text))} />
     </>
   );
 };

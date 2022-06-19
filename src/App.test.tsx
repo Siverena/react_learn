@@ -13,15 +13,15 @@ describe('App', () => {
     render(
       <MemoryRouter initialEntries={['/wrong_url']}>
         <Routes>
-          <Route path='/' element={<Header />}>
+          <Route path="/" element={<Header />}>
             <Route index element={<MainPage />}></Route>
-            <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/chats'>
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/chats">
               <Route index element={<ChatsPage />} />
-              <Route path=':chatName' element={<ChatsPage />} />
+              <Route path=":chatName" element={<ChatsPage />} />
             </Route>
           </Route>
-          <Route path='*' element={<h2>404</h2>} />
+          <Route path="*" element={<h2>404</h2>} />
         </Routes>
       </MemoryRouter>
     );
