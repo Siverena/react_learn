@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
@@ -110,67 +110,67 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { FC, useState } from 'react';
-import { Button } from './components/Button/Button';
-import { Input } from './components/Input/Input';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FC, memo, useState } from 'react';
+import { Button } from '../../../../elements/Button/Button';
+import { Input } from '../../../../elements/Input/Input';
 import style from './form.module.scss';
-import USERS from '../../../../constants';
-// import USERS from "src/constants";
-import { TSMessage } from 'src/common-types';
+import { useDispatch } from 'react-redux';
+import { addMessage } from 'src/store/messages/slice';
+import { useParams } from 'react-router-dom';
+import { Users } from 'src/common-types';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 &nbsp;
-interface FormProps {
-  addMessage: (msg: TSMessage) =&gt; void;
-}
-&nbsp;
-export const Form: FC&lt;FormProps&gt; = ({ addMessage }) =&gt; {
+export const Form: FC = memo(() =&gt; {
   const [text, setText] = useState('');
+  const dispatch = useDispatch&lt;ThunkDispatch&lt;any, void, AnyAction&gt;&gt;();
+  const { chatName } = useParams();
 &nbsp;
   const submitHandler = (e: React.FormEvent&lt;HTMLFormElement&gt;) =&gt; {
     e.preventDefault();
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (text.trim().length) {
-      addMessage({
-        author: USERS.user,
-        text,
-      });
-      setText('');
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (chatName &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >text.trim().length)</span> {
+<span class="cstat-no" title="statement not covered" >      dispatch(addMessage({ [chatName]: [{ author: Users.USER, text }] }));</span>
+<span class="cstat-no" title="statement not covered" >      setText('');</span>
     }
-  };
-  const handleClickButton = () =&gt; {
-    console.log('button click');
   };
 &nbsp;
   return (
-    &lt;form className={style.form} onSubmit={submitHandler}&gt;
-      &lt;Input value={text} change={setText} /&gt;
-      &lt;Button label="Отправить" click={handleClickButton} /&gt;
+    &lt;form data-testid="form" className={style.form} onSubmit={submitHandler}&gt;
+      &lt;Input
+        classnames={['input']}
+        value={text}
+        placeholder="Введите сообщение"
+        change={setText}
+      /&gt;
+      &lt;Button label="Отправить" /&gt;
     &lt;/form&gt;
   );
-};
+});
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -178,7 +178,7 @@ export const Form: FC&lt;FormProps&gt; = ({ addMessage }) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Jun 11 2022 14:56:06 GMT+0300 (Москва, стандартное время)
+                at Sun Jun 19 2022 19:51:34 GMT+0300 (Москва, стандартное время)
             </div>
         <script src="../../../../../prettify.js"></script>
         <script>
