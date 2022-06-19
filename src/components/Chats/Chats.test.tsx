@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { AnyAction, configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { rootReducer } from 'src/store';
 import { Provider } from 'react-redux';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 describe('MessageList', () => {
   let store: EnhancedStore<any, AnyAction, any>;
