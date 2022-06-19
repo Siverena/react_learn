@@ -6,12 +6,10 @@ import '@testing-library/jest-dom';
 
 describe('MessageList', () => {
   it('render component', () => {
-    const mockHandler = jest.fn();
-    render(<MessagesWindow messages={{}} addMessage={mockHandler} />);
+    render(<MessagesWindow />);
   });
   it('Bot`s response', async () => {
-    const mockHandler = jest.fn();
-    render(<MessagesWindow messages={{}} addMessage={mockHandler} />);
+    render(<MessagesWindow />);
     fireEvent.input(screen.getByPlaceholderText('Введите сообщение'), {
       target: { value: 'TestMessage' },
     });

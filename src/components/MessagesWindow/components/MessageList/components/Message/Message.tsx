@@ -1,8 +1,7 @@
-import React from 'react';
 import style from './message.module.scss';
 import { USERS } from '../../../../../../constants';
-import { TSMessage } from 'src/common-types';
 import { FC } from 'react';
+import { TSMessage } from 'src/store/messages/reducer';
 
 const isMyMessage = (author: string) => (author === USERS.user ? true : false);
 

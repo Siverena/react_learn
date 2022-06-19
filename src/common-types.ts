@@ -3,14 +3,3 @@ export enum Users {
   BOT = 'БОТИК КОТИК',
   USER2 = 'Другой пользователь',
 }
-export interface TSMessage {
-  author: Users;
-  text: string;
-}
-export interface TSMessages {
-  [key: string]: TSMessage[];
-}
-export interface TSChat {
-  id: string;
-  name: string;
-}

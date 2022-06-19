@@ -1,18 +1,18 @@
 import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addChat } from 'src/store/messages/action';
 import { Button } from '../../../../elements/Button/Button';
 import { Input } from '../../../../elements/Input/Input';
 import style from './form.module.scss';
 
-interface FormProps {
-  addChat: (name: string) => void;
-}
-export const Form: FC<FormProps> = ({ addChat }) => {
+export const Form: FC = () => {
   const [name, setName] = useState('');
+  const dispatch = useDispatch();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (name.trim().length) {
-      addChat(name.trim());
+      dispatch(addChat(name.trim()));
       setName('');
     }
   };
