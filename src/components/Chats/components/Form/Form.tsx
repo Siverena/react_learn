@@ -1,6 +1,7 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addChat } from 'src/store/messages/action';
+// import { addChat } from 'src/store/messages/action';
+import { addChat } from 'src/store/messages/slice';
 import { Button } from '../../../../elements/Button/Button';
 import { Input } from '../../../../elements/Input/Input';
 import style from './form.module.scss';

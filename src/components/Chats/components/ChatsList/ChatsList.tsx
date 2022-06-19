@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import style from './chats-list.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteChat } from 'src/store/messages/action';
+import { deleteChat } from 'src/store/messages/slice';
 import { selectChats } from 'src/store/messages/selectors';
 
 export const ChatsList: FC = () => {

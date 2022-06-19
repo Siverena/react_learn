@@ -1,7 +1,7 @@
 import style from './message.module.scss';
 import { USERS } from '../../../../../../constants';
 import { FC } from 'react';
-import { TSMessage } from 'src/store/messages/reducer';
+import { TSMessage } from 'src/common-types';
 
 const isMyMessage = (author: string) => (author === USERS.user ? true : false);
 
@@ -9,6 +9,7 @@ export const Message: FC<TSMessage> = ({ author, text }) => {
   return (
     <>
       <li
+        data-testid='li'
         className={
           style['message'] +
           (isMyMessage(author) ? ' ' + style['message--my'] : '')
