@@ -21,6 +21,7 @@ export const Input: FC<InputProps> = ({
     <input
       className={getClassNames(style, classnames)}
       type="text"
+      data-testid="input"
       placeholder={placeholder}
       value={value}
       autoFocus={autoFocus}
