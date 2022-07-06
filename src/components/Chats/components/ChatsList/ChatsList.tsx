@@ -27,14 +27,17 @@ export const ChatsList: FC = () => {
               <ListItemButton>
                 <ListItemText primary={chat.name} id={chat.id} />
               </ListItemButton>
-              <IconButton
-                aria-label="delete"
-                onClick={() => {
-                  dispatch(deleteChat(chat.name));
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
+
+              {chat.name !== 'Ботик-котик' && (
+                <IconButton
+                  aria-label="delete"
+                  onClick={() => {
+                    dispatch(deleteChat(chat.name));
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              )}
             </NavLink>
           </ListItem>
         ))}
