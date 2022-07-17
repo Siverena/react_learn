@@ -22,4 +22,22 @@ export const NAVIGATE = [
     name: 'Chats',
     to: '/chats',
   },
+  {
+    id: 4,
+    name: 'SignIn',
+    to: '/signin',
+  },
+  {
+    id: 5,
+    name: 'SignUp',
+    to: '/signup',
+  },
 ];
+
+export const ANSWERS = {
+  '/почесать': 'ММррррр!! Смотри, что я умею: /факт',
+  '/факт': '',
+};
+// https://alexwohlbruck.github.io/cat-facts/docs/endpoints/facts.html
+export const FACTS_API = 'https://cat-fact.herokuapp.com/facts/random';
+export const RECIPES_API = 'https://api.punkapi.com/v2/beers';

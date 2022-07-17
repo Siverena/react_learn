@@ -1,9 +1,18 @@
 import { FC } from 'react';
 import { NAVIGATE } from '../../constants';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import style from './header.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuth } from 'src/store/profile/selectors';
+import { auth } from 'src/store/profile/slice';
 
 export const Header: FC = () => {
+  const isAuth = useSelector(selectAuth);
+  const nav = useNavigate();
+  const dispatch = useDispatch();
+  const handleLogin = () => {
+    nav('/signin', { replace: true });
+  };
   return (
     <>
       <header className={style['main-header']}>
@@ -28,6 +37,12 @@ export const Header: FC = () => {
             }
           })}
         </ul>
+        <div>
+          {isAuth && (
+            <button onClick={() => dispatch(auth(false))}>logout</button>
+          )}
+        </div>
+        <div>{!isAuth && <button onClick={handleLogin}>login</button>}</div>
       </header>
       <main>
         <Outlet />
