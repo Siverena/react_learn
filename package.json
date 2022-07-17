@@ -95,6 +95,7 @@
     "@mui/styled-engine-sc": "^5.8.0",
     "@reduxjs/toolkit": "^1.8.2",
     "@storybook/preset-scss": "^1.0.3",
+    "firebase": "^9.9.0",
     "gh-pages": "^4.0.0",
     "nanoid": "^3.3.3",
     "react": "^18.1.0",

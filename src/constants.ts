@@ -9,27 +9,27 @@ export const USERS = {
 export const NAVIGATE = [
   {
     id: 1,
-    name: 'Main',
+    name: 'Главная',
     to: '/',
   },
   {
     id: 2,
-    name: 'Profile',
+    name: 'Профиль',
     to: '/profile',
   },
   {
     id: 3,
-    name: 'Chats',
+    name: 'Чаты',
     to: '/chats',
   },
   {
     id: 4,
-    name: 'SignIn',
+    name: 'Вход',
     to: '/signin',
   },
   {
     id: 5,
-    name: 'SignUp',
+    name: 'Регистрация',
     to: '/signup',
   },
 ];

@@ -1,26 +1,53 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Form } from './components/Form/Form';
 import { MessageList } from './components/MessageList/MessageList';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import style from './messages.module.scss';
-import { useSelector } from 'react-redux';
-import { selectMessages } from 'src/store/messages/selectors';
+import { TSChat, TSMessage } from 'src/common-types';
+import { onValue } from 'firebase/database';
+import { getChatByID } from 'src/services/firebase';
+interface MessagesWindowProps {
+  chats: TSChat[];
+}
 
-export const MessagesWindow: FC = () => {
+export const MessagesWindow: FC<MessagesWindowProps> = ({ chats }) => {
   const { chatName } = useParams();
+  const [messages, setMessages] = useState<TSMessage[]>([]);
+  let chatId = '';
 
-  const messages = useSelector(selectMessages);
+  const nav = useNavigate();
 
-  if (chatName && !messages[chatName]) {
-    return <Navigate to="/chats" replace />;
+  const selectedChat = chats.find((el) => el.name === chatName) ?? '';
+
+  if (selectedChat) {
+    chatId = selectedChat.id;
   }
-
-  if (chatName) {
+  // else {
+  //   nav('/chats', { replace: true });
+  // }
+  useEffect(() => {
+    if (chatName && !messages) {
+      nav('/chats', { replace: true });
+    }
+    // if (selectedChat) {
+    //   chatId = selectedChat.id;
+    // } else {
+    //   nav('/chats', { replace: true });
+    // }
+    const unsubscribe = onValue(getChatByID(chatId), (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setMessages(Object.values(data.messageList));
+      }
+    });
+    return unsubscribe;
+  }, [chatId]);
+  if (chatId) {
     return (
       <>
         <section className={style['message-window']}>
-          <MessageList messages={messages[chatName]} />
-          <Form />
+          <MessageList messages={messages} />
+          <Form chatId={chatId} />
         </section>
       </>
     );

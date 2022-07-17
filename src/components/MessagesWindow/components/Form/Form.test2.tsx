@@ -9,20 +9,21 @@ import { Provider } from 'react-redux';
 
 describe('Form', () => {
   let store: EnhancedStore<any, AnyAction, any>;
+  const chatId = 'chat1';
   beforeEach(() => {
     store = configureStore({ reducer: rootReducer });
   });
   it('render component', () => {
     render(
       <Provider store={store}>
-        <Form />
+        <Form chatId={chatId} />
       </Provider>
     );
   });
   it('form submited', async () => {
     render(
       <Provider store={store}>
-        <Form />
+        <Form chatId={chatId} />
       </Provider>
     );
     const mockHandler = jest.fn();

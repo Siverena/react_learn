@@ -3,10 +3,15 @@ export enum Users {
   BOT = 'БОТИК КОТИК',
   USER2 = 'Другой пользователь',
 }
-
+export interface TSChat {
+  id: string;
+  name: string;
+}
 export interface TSMessage {
-  author: Users;
+  // author: Users;
+  author: string;
   text: string;
+  time: Date;
 }
 export interface TSRecipe {
   abv?: number;

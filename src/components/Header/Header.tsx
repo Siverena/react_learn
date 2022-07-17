@@ -1,17 +1,15 @@
 import { FC } from 'react';
 import { NAVIGATE } from '../../constants';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 import style from './header.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectAuth } from 'src/store/profile/selectors';
-import { auth } from 'src/store/profile/slice';
+import { logOut } from 'src/services/firebase';
 
 export const Header: FC = () => {
   const isAuth = useSelector(selectAuth);
-  const nav = useNavigate();
-  const dispatch = useDispatch();
-  const handleLogin = () => {
-    nav('/signin', { replace: true });
+  const handleLogout = async () => {
+    await logOut();
   };
   return (
     <>
@@ -19,30 +17,36 @@ export const Header: FC = () => {
         <ul>
           {NAVIGATE.map((link) => {
             if (link) {
-              return (
-                <li key={link.id}>
-                  <NavLink
-                    to={link.to}
-                    style={({ isActive }) => ({
-                      color: isActive ? '#f16d7f' : '#ffffff',
-                    })}
-                    className={({ isActive }) =>
-                      isActive ? style['active'] : ''
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
-                </li>
-              );
+              if (!(isAuth && (link.id === 4 || link.id === 5))) {
+                return (
+                  <li key={link.id}>
+                    <NavLink
+                      to={link.to}
+                      style={({ isActive }) => ({
+                        color: isActive ? '#f16d7f' : '#ffffff',
+                      })}
+                      className={({ isActive }) =>
+                        isActive ? style['active'] : ''
+                      }
+                    >
+                      {link.name}
+                    </NavLink>
+                  </li>
+                );
+              }
             }
           })}
-        </ul>
-        <div>
           {isAuth && (
-            <button onClick={() => dispatch(auth(false))}>logout</button>
+            <li>
+              <a
+                style={{ color: '#ffffff', cursor: 'pointer' }}
+                onClick={handleLogout}
+              >
+                Выход
+              </a>
+            </li>
           )}
-        </div>
-        <div>{!isAuth && <button onClick={handleLogin}>login</button>}</div>
+        </ul>
       </header>
       <main>
         <Outlet />

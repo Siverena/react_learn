@@ -18,6 +18,7 @@
         line-height: 19px;
         color: #C4C4C4;
         text-decoration: none;
+        cursor: pointer;
         &--no-mr {
             margin-right: 0;
         }
@@ -38,11 +39,18 @@
                 }
             }
         }
+        
         &--active {
             color: #EF5B70;
+            cursor: auto;
+            pointer-events: none;
         }
         &:hover {
             color: #EF5B70;
+        }
+        &--disabled{
+            cursor: auto;
+            pointer-events: none;
         }
     }
 }
