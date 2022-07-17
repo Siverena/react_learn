@@ -1,12 +1,34 @@
 import React, { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { signUp } from 'src/services/firebase';
+import { selectAuth } from 'src/store/profile/selectors';
 import style from './sign.module.scss';
 
 export const SignUpPage: FC = () => {
-  const [name, setName] = useState('');
-  const [login, setLogin] = useState('');
+  const isAuth = useSelector(selectAuth);
+  const navigate = useNavigate();
+  if (isAuth) {
+    navigate('/', { replace: true });
+  }
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    try {
+      setLoading(true);
+      setError('');
+      await signUp(email, password);
+      navigate('/', { replace: true });
+    } catch (err) {
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -14,31 +36,15 @@ export const SignUpPage: FC = () => {
       <form className={style['registration']} onSubmit={handleSubmit}>
         <fieldset className={style['registration__block']}>
           <legend className={style['registration__block-name']}>
-            Your Name
-          </legend>
-          <input
-            className={style['registration__input']}
-            type="text"
-            name="First Name"
-            placeholder="First Name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
-        </fieldset>
-
-        <fieldset className={style['registration__block']}>
-          <legend className={style['registration__block-name']}>
-            Login details
+            Регистрация
           </legend>
           <input
             className={style['registration__input']}
             type="email"
             placeholder="Email"
-            value={login}
+            value={email}
             onChange={(e) => {
-              setLogin(e.target.value);
+              setEmail(e.target.value);
             }}
           />
           <input
@@ -52,7 +58,7 @@ export const SignUpPage: FC = () => {
           />
         </fieldset>
         <button className={style['registration__button']} type="submit">
-          Join now{' '}
+          Зарегистрироваться!{' '}
           <svg
             width="17"
             height="10"
@@ -75,6 +81,8 @@ export const SignUpPage: FC = () => {
           </svg>
         </button>
       </form>
+      {loading && <div>Loading...</div>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </>
   );
 };

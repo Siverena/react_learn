@@ -10,6 +10,7 @@ type AddMessage = { chatName: string; message: MessageWithId };
 export interface MessagesState {
   [key: string]: MessageWithId[];
 }
+
 const defaulChatName = 'Ботик-котик';
 const initialState: MessagesState = {
   [defaulChatName]: [
@@ -17,6 +18,7 @@ const initialState: MessagesState = {
       id: '1',
       author: USERS.bot,
       text: 'Добрый день! Я ботик котик. Почешите мне животик (Введите команду: /почесать)',
+      time: new Date(),
     },
   ],
 };
@@ -46,6 +48,7 @@ const messageSlice = createSlice({
         id: nanoid(),
         author: action.payload.message.author,
         text: action.payload.message.text,
+        time: action.payload.message.time,
       });
     },
   },
@@ -94,6 +97,7 @@ export const addMessageWithReply = createAsyncThunk(
                 id: nanoid(),
                 author: Users.BOT,
                 text: await getReply(message.text),
+                time: new Date(),
               },
             })
           );

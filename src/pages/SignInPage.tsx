@@ -1,23 +1,45 @@
+import { FirebaseError } from 'firebase/app';
 import React, { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { auth } from 'src/store/profile/slice';
+import { signIn } from 'src/services/firebase';
 import style from './sign.module.scss';
 
 export const SignInPage: FC = () => {
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  const dispatch = useDispatch();
-  const nav = useNavigate();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const setErrorMessage = (error: FirebaseError) => {
+    switch (error.code) {
+      case 'auth/user-disabled':
+        setError('Пользователь заблокирован');
+        break;
+      case 'auth/user-not-found':
+        setError('Неверное имя пользователя или пароль');
+        break;
+      case 'auth/wrong-password':
+        setError('Неверное имя пользователя или пароль');
+        break;
+      case 'auth/too-many-requests':
+        setError('Слишком много неудачных попыток');
+        break;
+      default:
+        setError(error.message);
+    }
+  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(false);
-    if (login === 'gb' && password === 'gb') {
-      dispatch(auth(true));
-      nav('/', { replace: true });
-    } else {
-      setError(true);
+    try {
+      setLoading(true);
+      setError('');
+      await signIn(email, password);
+      navigate('/chats', { replace: true });
+    } catch (err) {
+      console.dir(err);
+      setErrorMessage(err as FirebaseError);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,16 +47,14 @@ export const SignInPage: FC = () => {
     <>
       <form className={style['registration']} onSubmit={handleSubmit}>
         <fieldset className={style['registration__block']}>
-          <legend className={style['registration__block-name']}>
-            Login details
-          </legend>
+          <legend className={style['registration__block-name']}>Вход</legend>
           <input
             className={style['registration__input']}
-            type="text"
+            type="email"
             placeholder="Email"
-            value={login}
+            value={email}
             onChange={(e) => {
-              setLogin(e.target.value);
+              setEmail(e.target.value);
             }}
           />
           <input
@@ -47,8 +67,12 @@ export const SignInPage: FC = () => {
             }}
           />
         </fieldset>
-        <button className={style['registration__button']} type="submit">
-          Join now{' '}
+        <button
+          className={style['registration__button']}
+          type="submit"
+          disabled={loading ? true : false}
+        >
+          Войти{' '}
           <svg
             width="17"
             height="10"
@@ -71,7 +95,8 @@ export const SignInPage: FC = () => {
           </svg>
         </button>
       </form>
-      {error && <p style={{ color: 'red' }}>Логин или пароль не верны</p>}
+      {loading && <div>Loading...</div>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </>
   );
 };

@@ -1,15 +1,42 @@
 import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { StoreState } from 'src/store';
+import { changePage } from 'src/store/recipes/slice';
 import style from './pagination.module.scss';
 
 export const Pagination: FC = () => {
+  const numberOfPages = 10;
+  const dispatch = useDispatch() as any;
+  const currentPage = useSelector((store: StoreState) => store.recipes.page);
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    let page = Number((e.target as HTMLElement).getAttribute('data-page'));
+    if (!page) page = 1;
+    dispatch(changePage(page));
+  };
+  const clickNext = () => {
+    if (currentPage < numberOfPages) {
+      dispatch(changePage(+currentPage + 1));
+    }
+  };
+  const clickPrev = () => {
+    if (currentPage > 1) {
+      dispatch(changePage(+currentPage - 1));
+    }
+  };
+  const arr = new Array(numberOfPages).fill(null);
   return (
     <>
       <div className={style['pagination']}>
-        <a
-          href="#"
+        <Link
+          to={`?page=${currentPage - 1}`}
           className={
-            style['pagination__item'] + ' ' + style['pagination__item--prew']
+            style['pagination__item'] +
+            ' ' +
+            style['pagination__item--prew'] +
+            (currentPage <= 1 && ' ' + style['pagination__item--disabled'])
           }
+          onClick={clickPrev}
         >
           <svg
             width="9"
@@ -23,46 +50,39 @@ export const Pagination: FC = () => {
               fill="black"
             ></path>
           </svg>
-        </a>
+        </Link>
         <div className={style['pagination__wrap']}>
-          <a
-            href="#"
-            className={
-              style['pagination__item'] +
-              ' ' +
-              style['pagination__item--active']
-            }
-          >
-            1{' '}
-          </a>
-          <a href="#" className={style['pagination__item']}>
-            2{' '}
-          </a>
-          <a href="#" className={style['pagination__item']}>
-            3{' '}
-          </a>
-          <a href="#" className={style['pagination__item']}>
-            4{' '}
-          </a>
-          <a href="#" className={style['pagination__item']}>
-            5{' '}
-          </a>
-          <a
-            href="#"
-            className={
-              style['pagination__item'] +
-              ' ' +
-              style[' pagination__item--no-mr']
-            }
-          >
-            6{' '}
-          </a>
+          {arr.map((v, i) => (
+            <Link
+              to={`?page=${i + 1}`}
+              className={
+                style['pagination__item'] +
+                (i + 1 == currentPage
+                  ? ' ' + style['pagination__item--active']
+                  : '') +
+                (i + 1 == arr.length
+                  ? ' ' + style['pagination__item--no-mr']
+                  : '')
+              }
+              data-page={i + 1}
+              onClick={handleClick}
+              key={i + 1}
+            >
+              {i + 1}
+            </Link>
+          ))}
         </div>
-        <a
-          href="#"
+        <Link
+          to={`?page=${currentPage + 1}`}
           className={
-            style['pagination__item'] + ' ' + style[' pagination__item--next']
+            style['pagination__item'] +
+            ' ' +
+            style['pagination__item--next'] +
+            (currentPage == numberOfPages
+              ? ' ' + style['pagination__item--disabled']
+              : '')
           }
+          onClick={clickNext}
         >
           <svg
             width="9"
@@ -76,7 +96,7 @@ export const Pagination: FC = () => {
               fill="black"
             ></path>
           </svg>
-        </a>
+        </Link>
       </div>
     </>
   );

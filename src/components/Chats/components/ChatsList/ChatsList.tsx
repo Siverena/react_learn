@@ -7,17 +7,17 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import style from './chats-list.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteChat } from 'src/store/messages/slice';
-import { selectChats } from 'src/store/messages/selectors';
+import { remove } from 'firebase/database';
+import { getChatByID } from 'src/services/firebase';
+import { TSChat } from 'src/common-types';
 
-export const ChatsList: FC = () => {
-  const dispatch = useDispatch();
-  const chats = useSelector(
-    selectChats,
-    (prev, next) => prev.length === next.length
-  );
-
+interface ChatsListProps {
+  chats: TSChat[];
+}
+export const ChatsList: FC<ChatsListProps> = ({ chats }) => {
+  const deleteChat = (chatId: string) => {
+    remove(getChatByID(chatId));
+  };
   return (
     <section className={style['chats']}>
       <List className={style['chatlist']}>
@@ -32,7 +32,7 @@ export const ChatsList: FC = () => {
                 <IconButton
                   aria-label="delete"
                   onClick={() => {
-                    dispatch(deleteChat(chat.name));
+                    deleteChat(chat.id);
                   }}
                 >
                   <DeleteIcon />

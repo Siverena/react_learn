@@ -35,10 +35,13 @@ describe('MessagesList', () => {
       {
         author: Users.USER,
         text: '1',
+        time: new Date(),
       },
       {
         author: Users.USER,
         text: '2',
+
+        time: new Date(),
       },
     ];
     render(

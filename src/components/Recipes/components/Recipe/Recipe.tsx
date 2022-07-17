@@ -7,7 +7,6 @@ interface RecipeProps {
   recipe: TSRecipe;
 }
 export const Recipe: FC<RecipeProps> = ({ recipe }) => {
-  console.log();
   return (
     <>
       <li className={style.recipe}>

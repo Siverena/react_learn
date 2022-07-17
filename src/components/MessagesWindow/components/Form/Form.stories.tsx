@@ -10,7 +10,7 @@ export default {
 
 const Template: ComponentStory<typeof Form> = () => (
   <Provider store={store}>
-    <Form />
+    <Form chatId="chatId1" />
   </Provider>
 );
 

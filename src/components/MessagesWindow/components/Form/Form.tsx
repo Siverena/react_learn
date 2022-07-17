@@ -1,25 +1,27 @@
 import { FC, memo, useState } from 'react';
-import { Button } from '../../../../elements/Button/Button';
-import { Input } from '../../../../elements/Input/Input';
+import { Button } from 'src/elements/Button/Button';
+import { Input } from 'src/elements/Input/Input';
 import style from './form.module.scss';
-import { useDispatch } from 'react-redux';
-import { addMessageWithReply } from 'src/store/messages/slice';
 import { useParams } from 'react-router-dom';
 import { Users } from 'src/common-types';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
+import { getMessagesByChatID } from 'src/services/firebase';
+import { push } from 'firebase/database';
 
-export const Form: FC = memo(() => {
+interface FormProps {
+  chatId: string;
+}
+export const Form: FC<FormProps> = memo(({ chatId }) => {
   const [text, setText] = useState('');
-  const dispatch = useDispatch<ThunkDispatch<string, void, AnyAction>>();
   const { chatName } = useParams();
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (chatName && text.trim().length) {
-      dispatch(
-        addMessageWithReply({ chatName, message: { author: Users.USER, text } })
-      );
+      push(getMessagesByChatID(chatId), {
+        text: text,
+        author: Users.USER,
+        time: new Date().toISOString(),
+      });
       setText('');
     }
   };

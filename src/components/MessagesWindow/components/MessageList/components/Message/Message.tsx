@@ -1,11 +1,11 @@
 import style from './message.module.scss';
-import { USERS } from '../../../../../../constants';
+import { USERS } from 'src/constants';
 import { FC } from 'react';
 import { TSMessage } from 'src/common-types';
 
 const isMyMessage = (author: string) => (author === USERS.user ? true : false);
 
-export const Message: FC<TSMessage> = ({ author, text }) => {
+export const Message: FC<TSMessage> = ({ author, text, time }) => {
   return (
     <>
       <li
@@ -22,6 +22,9 @@ export const Message: FC<TSMessage> = ({ author, text }) => {
           </>
         )}
         <p className={style['message__text']}>{text}</p>
+        <p className={style['message__text']}>
+          {new Date(time).toLocaleString()}
+        </p>
       </li>
     </>
   );
